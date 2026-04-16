@@ -9,7 +9,8 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - Battling
 
 **Commands:**
-- /balance - Shows amount of points the user that triggered the command has
+- /points - Shows amount of points the user that triggered the command has
+- /shop - Open the menu to buy boxes to unclock cubes!
 - More in Development...
 
 **How it works:**
