@@ -11,6 +11,7 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 **Commands:**
 - /points - Shows amount of points the user that triggered the command has
 - /shop - Open the menu to buy boxes to unclock cubes!
+- /ping - Test the ping/connection of the bot
 - More in Development...
 
 **How it works:**
