@@ -12,8 +12,10 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - /points - Shows amount of points the user that triggered the command has
 - /shop - Open the menu to buy boxes to unclock cubes!
 - /ping - Test the ping/connection of the bot
+- /inventory - View all the Cubes you have
 - More in Development...
 
 **How it works:**
 - Points - Every message send by a user instantly gets a random amount of points (1-10) - When the amount is randomly choosen it is stored inside a data.json that has the points as a variable along with the following: User ID, Username, Characters (cubes). This allow all future data to be ready and set up to be saved along with allowing data to be retreieved and read by the bot. 
 - Shop - The shop menu is the spot where users can purchase boxes to unlock cubes! Each box has different cubes and rariety for unboxing. These are stored inside a .json for storage and are retrieved and read by the bot everytime you purchase a new box!
+- Inventory - The bot looks into the .json file and takes all the Cubes the user has and counts them then send the amount for each cube in a message only the user that triggered it can read.
