@@ -15,5 +15,5 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - More in Development...
 
 **How it works:**
-- Points - Every message send by a user instantly gets a random amount of points (1-10) - When the amount is randomly choosen it is stored inside a data.json that has the points as a variable along with the following: User ID, Username, Characters (cubes). This allow all future data to be ready and set up to be saved along with allowing data to be retreieved and read by the bot. 
-- Shop - The shop menu is the spot where users can purchase boxes to unlock cubes! Each box has different cubes and rariety for unboxing. These are stored inside a .json for storage and are retrieved and read by the bot everytime you purchase a new box!
+- Points - Every message send by a user instantly gets a random amount of points (5-25) - When the amount is randomly choosen it is stored inside a data.json that has the points as a variable along with the following: User ID, Username, Characters (cubes). This allow all future data to be ready and set up to be saved along with allowing data to be retreieved and read by the bot. 
+- Shop - The shop menu is the spot where users can purchase boxes to unlock cubes! Each box has different cubes and rariety for unboxing. These are stored inside a .json for storage and are retrieved and read by the bot everytime you purchase a new box! 
