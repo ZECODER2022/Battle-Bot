@@ -7,12 +7,26 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - Boxes 
 - Cubes
 - Battling
+- Cube selling
+- Dueling
 
 **Commands:**
 - /points - Shows amount of points the user that triggered the command has
 - /shop - Open the menu to buy boxes to unclock cubes!
 - /ping - Test the ping/connection of the bot
+- /sell - sell extra cubes for some extra points
+- /duel - invite a player to a duel
+- /help - learn how to use and play the bot
+- /randomduel - send a command looking for someone to duel
+- /inventory - Shows all of your cubes
+- /allinventory - show a collections of all users
+- /givecube (DEV ONLY) - gives selectect user inputed cube
+- /givepoints (DEV ONLY) - gives selected user inputed points
 - More in Development...
+
+**Current Boxes:**
+- Basic Box - 250 points with standard color lootpool
+- Gaming Box - 500 points with gaming title lootpool
 
 **How it works:**
 - Points - Every message send by a user instantly gets a random amount of points (5-25) - When the amount is randomly choosen it is stored inside a data.json that has the points as a variable along with the following: User ID, Username, Characters (cubes). This allow all future data to be ready and set up to be saved along with allowing data to be retreieved and read by the bot. 
@@ -31,3 +45,17 @@ Once you connect the bot to your server via the token you need to add some highu
 This feild allows the bots commands /givecube and /givepoints to be used by server administrators!
 
 Once that it in the bot should be able to be ran and if all steps are done right it should work!
+
+# **DataBase**
+
+The code uses a .json file to store user data like; cubes, points and username. This .json can be manually edited while the bot is running to fix a issue or give other players cubes or points without running commands!
+
+**How to edit:**
+
+To edit a users points under there name you can just edit the points value and save, the bot will instantly update with the new data without having to restart the bot!
+
+Photo coming soon...
+
+To edit what cubes a user has you can just copy the section (seen in photo below) to another user or get them from the CUEBS.md found in the files (coming soon...)
+
+Photo Coming Soon...
