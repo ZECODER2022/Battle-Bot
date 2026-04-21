@@ -28,4 +28,6 @@ Once you connect the bot to your server via the token you need to add some highu
 
 <img width="288" height="28" alt="Screenshot 2026-04-21 at 8 19 03 AM" src="https://github.com/user-attachments/assets/5da208fe-2ef2-41b3-becb-cd92781ade05" />
 
+This feild allows the bots commands /givecube and /givepoints to be used by server administrators!
+
 Once that it in the bot should be able to be ran and if all steps are done right it should work!
