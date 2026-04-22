@@ -61,3 +61,14 @@ Photo coming soon...
 To edit what cubes a user has you can just copy the section (seen in photo below) to another user or get them from the CUEBS.md found in the files (coming soon...)
 
 Photo Coming Soon...
+
+# **Adding your own stuff**
+
+Since the bot is open sourced anyone can create their own versions! To create your own versions its important to understand how the base code works. This section will be all about how it works and some ideas for new features!
+
+**Cubes:**
+Cubes work by having different data groups for each box (See image below) These can have more Cubes added or removed from them will impact the boxes! To create a new box you will need to Add another section with Cubes in it will the same data found in the others. 
+
+Photo Coming Soon...
+
+To Update the /Shop command with the new Box button you need to go to ______ and add a new _______ (Being filled in soon...)
