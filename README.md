@@ -74,4 +74,4 @@ Photo Coming Soon...
 To Update the /Shop command with the new Box button you need to go to ______ and add a new _______ (Being filled in soon...)
 
 New Box Code:
-{context: 'embed.add_field(name="📦 Basic Box", value='**250 points**\nContains a mystery Cube!', inline=False)'}
+
