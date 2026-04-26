@@ -56,11 +56,11 @@ The code uses a .json file to store user data like; cubes, points and username. 
 
 To edit a users points under there name you can just edit the points value and save, the bot will instantly update with the new data without having to restart the bot!
 
-Photo coming soon...
+<img width="199" height="77" alt="Screenshot 2026-04-26 at 3 22 51 PM" src="https://github.com/user-attachments/assets/832090e0-a6b2-40ca-963f-f41b542e425b" />
 
 To edit what cubes a user has you can just copy the section (seen in photo below) to another user or get them from the CUEBS.md found in the files (coming soon...)
 
-Photo Coming Soon...
+<img width="189" height="123" alt="Screenshot 2026-04-26 at 3 23 56 PM" src="https://github.com/user-attachments/assets/17c17a5a-1403-4b2a-9b8a-005188456ea0" />
 
 # **Adding your own stuff**
 
@@ -69,9 +69,14 @@ Since the bot is open sourced anyone can create their own versions! To create yo
 **Cubes:**
 Cubes work by having different data groups for each box (See image below) These can have more Cubes added or removed from them will impact the boxes! To create a new box you will need to Add another section with Cubes in it will the same data found in the others. 
 
-Photo Coming Soon...
+<img width="681" height="118" alt="Screenshot 2026-04-26 at 3 26 16 PM" src="https://github.com/user-attachments/assets/c4109851-fa1b-4d8a-a123-6936069f8466" />
 
-To Update the /Shop command with the new Box button you need to go to ______ and add a new _______ (Being filled in soon...)
+To Update the /Shop command with the new Box button you need to go to Line 777 (V Beta-1.5) and add a new box code example below:
+
+Example:
+
+<img width="681" height="28" alt="Screenshot 2026-04-26 at 3 25 46 PM" src="https://github.com/user-attachments/assets/a709a12f-8035-457c-b7c4-bebe45560dfe" />
 
 New Box Code:
+- "embed.add_field(name="📦 Basic Box", value='**250 points**\nContains a mystery Cube!', inline=False)" 
 
