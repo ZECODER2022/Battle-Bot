@@ -1,1 +1,115 @@
+# List of all cubes:
 
+**Basic Box:**
+
+Red cube:
+ {
+    "name": "Red Cube",
+    "color": "\ud83d\udd34",
+    "rarity": "common",
+    "weight": 50,
+    "hp": 100,
+    "damage": 25
+  },
+
+Blue Cube:
+  {
+    "name": "Blue Cube",
+    "color": "\ud83d\udd35",
+    "rarity": "uncommon",
+    "weight": 25,
+    "hp": 150,
+    "damage": 35
+  },
+
+Green Cube:
+  {
+    "name": "Green Cube",
+    "color": "\ud83d\udfe2",
+    "rarity": "rare",
+    "weight": 15,
+    "hp": 175,
+    "damage": 45
+  },
+
+Yellow Cube:
+  {
+    "name": "Yellow Cube",
+    "color": "\ud83d\udfe1",
+    "rarity": "epic",
+    "weight": 5,
+    "hp": 200,
+    "damage": 65
+  },
+
+Black Cube:
+  {
+    "name": "Black Cube",
+    "color": "\u26ab",
+    "rarity": "legendary",
+    "weight": 1,
+    "hp": 250,
+    "damage": 80
+  },
+
+**Gaming Box**
+
+Steam Cube:
+  {
+    "name": "Steam",
+    "color": "\u26ab",
+    "rarity": "common",
+    "weight": 50,
+    "hp": 100,
+    "damage": 25
+  },
+
+Portal 1 Cube:
+  {
+    "name": "Portal 1",
+    "color": "\ud83d\udd35",
+    "rarity": "uncommon",
+    "weight": 25,
+    "hp": 150,
+    "damage": 35
+  },
+
+Portal 2 Cube:
+  {
+    "name": "Portal 2",
+    "color": "\ud83d\udfe0",
+    "rarity": "rare",
+    "weight": 15,
+    "hp": 175,
+    "damage": 45
+  },
+
+Half-Life Cube:
+  {
+    "name": "Half-Life",
+    "color": "\ud83d\udfe2",
+    "rarity": "Epic",
+    "weight": 5,
+    "hp": 200,
+    "damage": 65
+  },
+
+Half-life 2 Cube
+  {
+    "name": "Half-Life 2",
+    "color": "\ud83d\udfe3",
+    "rarity": "legendary",
+    "weight": 1,
+    "hp": 250,
+    "damage": 75
+  },
+
+Companinion Cube:
+  {
+    "name": "Companion Cube",
+    "color": "\ud83e\ude77",
+    "rarity": "SECRETE",
+    "weight": 0.25,
+    "hp": 500,
+    "damage": 100
+  },
