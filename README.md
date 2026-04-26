@@ -17,6 +17,7 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - /sell - sell extra cubes for some extra points
 - /duel - invite a player to a duel
 - /help - learn how to use and play the bot
+- /trade - trade cubes with other users
 - /randomduel - send a command looking for someone to duel
 - /inventory - Shows all of your cubes
 - /allinventory - show a collections of all users
@@ -33,7 +34,7 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - Shop - The shop menu is the spot where users can purchase boxes to unlock cubes! Each box has different cubes and rariety for unboxing. These are stored inside a .json for storage and are retrieved and read by the bot everytime you purchase a new box!
 - Sell - When a user runes the sell command they select a cube they would like to sell then get to choose from 4 amounts; 1, 5, 10, Max. Once you select a cube and amount the bot will remove the segments from the .json deleting the cubes from your inventory
 - Inventory - When you run the inventory command the bot goes into the .json and pull all the cubes that you currently have and listes them in amounts. Once it has gathered all the cubes it will send a message showing all of your cubes and amount.
-
+- Trading - When ran the person who ran it choses a cube they want and the other user choses one they want if they agree it switches them from users in the .json and sends a message saying it was successful!
 
 
 # **How to install**
