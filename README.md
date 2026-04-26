@@ -71,7 +71,7 @@ Cubes work by having different data groups for each box (See image below) These 
 
 <img width="681" height="118" alt="Screenshot 2026-04-26 at 3 26 16 PM" src="https://github.com/user-attachments/assets/c4109851-fa1b-4d8a-a123-6936069f8466" />
 
-To Update the /Shop command with the new Box button you need to go to Line 777 (V Beta-1.5) and add a new box code example below:
+To Update the /Shop command with the new Box button you need to go to Line 777 (V Beta-1.5) and add a new box code example below: Along with that you will need to add a new class im not gonna get into how to here but its pretty simple and in the code near the top you can pretty much copy and paste it and change it around and it should work. Thats what i did with the gaming box
 
 Example:
 
