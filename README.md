@@ -58,7 +58,7 @@ To edit a users points under there name you can just edit the points value and s
 
 <img width="199" height="77" alt="Screenshot 2026-04-26 at 3 22 51 PM" src="https://github.com/user-attachments/assets/832090e0-a6b2-40ca-963f-f41b542e425b" />
 
-To edit what cubes a user has you can just copy the section (seen in photo below) to another user or get them from the CUEBS.md found in the files (coming soon...)
+To edit what cubes a user has you can just copy the section (seen in photo below) to another user or get them from the CUEBS.md found in the files
 
 <img width="189" height="123" alt="Screenshot 2026-04-26 at 3 23 56 PM" src="https://github.com/user-attachments/assets/17c17a5a-1403-4b2a-9b8a-005188456ea0" />
 
