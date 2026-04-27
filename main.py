@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 DATA_FILE = Path('data.json')
 
-DEVELOPER_ROLE_ID = PUT_ADMIN_ROLE_HERE!!!!
+DEVELOPER_ROLE_ID = ADMIN_ROLE_ID_HERE
 
 CUBES = [
     {'name': 'Red Cube', 'color': '🔴', 'rarity': 'common', 'weight': 50, 'hp': 100, 'damage': 25},
@@ -356,6 +356,90 @@ class CubeSelectView(discord.ui.View):
         super().__init__(timeout=60)
         self.chosen_cube_name = None
         self.add_item(CubeSelect(user_cubes))
+
+class TradeWarningView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=30)
+        self.comfirmed = False
+
+    @discord.ui.button(label='Yes, trade it?', style=discord.ButtonStyle.green)
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.comfirmed = True
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(content="Trade confirmed! Processing...", view=self)
+        self.stop()
+
+    @discord.ui.button(label='No, keep it!', style=discord.ButtonStyle.red)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.comfirmed = False
+        for item in self.children:
+            item=disabled = True
+        await interaction.response.edit_message(content='Trade cancelled!', view=self)
+        self.stop()
+
+class TradeOfferView(discord.ui.View):
+    def __init__(self, sender, recipient, cube_name):
+        super().__init__(timeout=60)
+        self.sender = sender
+        self.recipient = recipient
+        self.cube_name = cube_name
+        self.accepted = False
+
+    @discord.ui.button(label='Accept Trade', style=discord.ButtonStyle.green)
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.accepted = True
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(content=f"✅ Trade accepted by {interaction.user.name}!", view=self)
+        self.stop()
+
+    @discord.ui.button(label='Decline Trade', style=discord.ButtonStyle.red)
+    async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.accepted = False
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(content=f"❌ Trade declined by {interaction.user.name}!", view=self)
+        self.stop()
+
+class MutualTradeView(discord.ui.View):
+    def __init__(self, sender, recipient):
+        super().__init__(timeout=120)
+        self.sender = sender
+        self.recipient = recipient
+        self.sender_accepted = False
+        self.recipient_accepted = False
+
+    @discord.ui.button(label='Accept Trade', style=discord.ButtonStyle.green)
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id == self.sender.id:
+            self.sender_accepted = True
+        elif interaction.user.id == self.recipient.id:
+            self.recipient_accepted = True
+        else:
+            await interaction.response.send_message("This trade isn't for you!", ephemeral=True)
+            return
+        
+        # Update message to show who accepted
+        status = f"✅ {interaction.user.name} accepted"
+        if self.sender_accepted and self.recipient_accepted:
+            status = "✅ Both players accepted! Trade completing..."
+            for item in self.children:
+                item.disabled = True
+            self.stop()
+        
+        await interaction.response.edit_message(content=status, view=self)
+
+    @discord.ui.button(label='Decline Trade', style=discord.ButtonStyle.red)
+    async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id not in [self.sender.id, self.recipient.id]:
+            await interaction.response.send_message("This trade isn't for you!", ephemeral=True)
+            return
+        
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(content=f"❌ Trade declined by {interaction.user.name}!", view=self)
+        self.stop()
 
 class GamingBoxView(discord.ui.View):
     def __init__(self):
@@ -740,6 +824,113 @@ class StatsView(discord.ui.View):
         super().__init__(timeout=60)
         self.add_item(StatsSelect(user_cubes))
 
+@bot.tree.command(name='trade', description='Trade a cube with another user!')
+@discord.app_commands.describe(user='Who do you want to trade with?')
+async def trade(interaction: discord.Interaction, user: discord.Member):
+    if user.id == interaction.user.id:
+        await interaction.response.send_message("You can't trade with yourself!", ephemeral=True)
+        return
+    if user.bot:
+        await interaction.response.send_message("You can't trade with bots!", ephemeral=True)
+        return
+    
+    sender_id = str(interaction.user.id)
+    recipient_id = str(user.id)
+    data = load_data()
+
+    if sender_id not in data['users'] or not data['users'][sender_id]['characters']:
+        await interaction.response.send_message('Your inventory is empty! Buy some boxes to get cubes to trade!', ephemeral=True)
+        return
+    
+    if recipient_id not in data['users'] or not data['users'][recipient_id]['characters']:
+        await interaction.response.send_message(f'{user.mention} has an empty inventory!', ephemeral=True)
+        return
+    
+    # Sender selects their cube
+    sender_select_view = TradeSelectedView(data['users'][sender_id]['characters'])
+    await interaction.response.send_message("Select a cube to offer:", view=sender_select_view, ephemeral=True)
+    await sender_select_view.wait()
+
+    if not sender_select_view.choosen_cube:
+        await interaction.edit_original_response(content="Trade cancelled - you didn't select a cube in time!", view=None)
+        return
+    
+    sender_cube_name = sender_select_view.choosen_cube
+    
+    # Check for trade warning on sender's cube
+    warning = TRADE_WARNINGS.get(sender_cube_name)
+    if warning:
+        warning_view = TradeWarningView()
+        await interaction.edit_original_response(content=warning, view=warning_view)
+        await warning_view.wait()
+        if not warning_view.comfirmed:
+            return
+
+    sender_cube = next(c for c in data['users'][sender_id]['characters'] if c['name'] == sender_cube_name)
+    
+    # Recipient selects their cube (via DM)
+    recipient_select_view = TradeSelectedView(data['users'][recipient_id]['characters'])
+    try:
+        dm_msg = await user.send(f"**{interaction.user.name}** is offering you their {sender_cube['color']} **{sender_cube_name}**!\n\nWhat cube would you like to offer in return?", view=recipient_select_view)
+    except discord.Forbidden:
+        await interaction.channel.send(f"❌ Could not send DM to {user.mention}! They need to enable DMs.")
+        return
+    
+    await recipient_select_view.wait()
+    
+    if not recipient_select_view.choosen_cube:
+        await interaction.channel.send(f"❌ Trade cancelled - {user.mention} didn't select a cube in time!")
+        return
+    
+    recipient_cube_name = recipient_select_view.choosen_cube
+    recipient_cube = next(c for c in data['users'][recipient_id]['characters'] if c['name'] == recipient_cube_name)
+    
+    # Check for trade warning on recipient's cube
+    warning = TRADE_WARNINGS.get(recipient_cube_name)
+    if warning:
+        warning_view = TradeWarningView()
+        await dm_msg.edit(content=warning, view=warning_view)
+        await warning_view.wait()
+        if not warning_view.comfirmed:
+            await interaction.channel.send(f"❌ Trade cancelled - {user.mention} declined to trade their {recipient_cube['color']} **{recipient_cube_name}**!")
+            return
+    
+    # Create mutual trade offer
+    embed = discord.Embed(
+        title="🔄 Mutual Trade Offer",
+        description=f"**{interaction.user.name}** ↔️ {user.mention}",
+        color=discord.Color.blurple()
+    )
+    embed.add_field(name=f"{interaction.user.name} offers", value=f"{sender_cube['color']} **{sender_cube_name}**", inline=True)
+    embed.add_field(name=f"{user.name} offers", value=f"{recipient_cube['color']} **{recipient_cube_name}**", inline=True)
+    embed.set_footer(text="Both players must accept for the trade to complete!")
+    
+    trade_view = MutualTradeView(interaction.user, user)
+    trade_message = await interaction.channel.send(embed=embed, view=trade_view)
+    await trade_view.wait()
+    
+    # Check if both accepted
+    if not trade_view.sender_accepted or not trade_view.recipient_accepted:
+        await trade_message.edit(content="❌ Trade cancelled - not both players accepted!", embed=None, view=None)
+        return
+    
+    # Execute trade
+    data = load_data()
+    sender_data = data['users'].get(sender_id)
+    recipient_data = data['users'].get(recipient_id)
+    
+    # Remove cubes from inventories
+    sender_data['characters'] = [c for c in sender_data['characters'] if not (c['name'] == sender_cube_name and c == sender_cube)]
+    recipient_data['characters'] = [c for c in recipient_data['characters'] if not (c['name'] == recipient_cube_name and c == recipient_cube)]
+    
+    # Add cubes to new owners
+    sender_data['characters'].append(recipient_cube)
+    recipient_data['characters'].append(sender_cube)
+    
+    save_data(data)
+    
+    await trade_message.edit(content=f"✅ Trade successful!\n{interaction.user.name} received {recipient_cube['color']} **{recipient_cube_name}**\n{user.mention} received {sender_cube['color']} **{sender_cube_name}**", embed=None, view=None)
+
 @bot.tree.command(name='ping', description='Responds with Pong!')
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f'Pong! {round(bot.latency * 1000)}ms')
@@ -783,4 +974,4 @@ async def shop(interaction: discord.Interaction):
     view.add_item(GamingBoxButton())
     await interaction.response.send_message(embed=embed, view=ShopView())
 
-bot.run('Token_here')
+bot.run('TOKEN_HERE')
