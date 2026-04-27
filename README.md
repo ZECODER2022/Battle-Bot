@@ -9,6 +9,7 @@ This is a discord bot that is a fun interactive game for a server! Everytime you
 - Battling
 - Cube selling
 - Dueling
+- Trading
 
 **Commands:**
 - /points - Shows amount of points the user that triggered the command has
